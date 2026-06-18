@@ -1,8 +1,8 @@
 export const estates = [
     {
         id: 1,
-        name: "Highland Haven",
-        location: "Asokoro, Abuja",
+        name: "Primelux Estate",
+        location: "Apo, Abuja",
         description: "A hilltop sanctuary offering panoramic views and unmatched serenity.",
         src: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2671&auto=format&fit=crop",
         prototypes: [
@@ -27,7 +27,7 @@ export const estates = [
     {
         id: 2,
         name: "Emerald Court",
-        location: "Maitama, Abuja",
+        location: "Kuje, Abuja",
         description: "Modern minimalism meets luxury in the heart of the city.",
         src: "https://images.unsplash.com/photo-1600596542815-e395fb9f1f48?q=80&w=2600&auto=format&fit=crop",
         prototypes: [
@@ -51,8 +51,8 @@ export const estates = [
     },
     {
         id: 3,
-        name: "The Sapphire",
-        location: "Guzape, Abuja",
+        name: "Goldmark City",
+        location: "Kyami, Abuja",
         description: "Smart homes designed for the future of living.",
         src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2600&auto=format&fit=crop",
         prototypes: [
@@ -68,8 +68,8 @@ export const estates = [
     },
     {
         id: 4,
-        name: "Royal Gardens",
-        location: "Wuse II, Abuja",
+        name: "Sunview City",
+        location: "Kuje, Abuja",
         description: "An exclusive enclave for the elite.",
         src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2600&auto=format&fit=crop",
         prototypes: [

@@ -14,24 +14,24 @@ const Properties = ({ setIsExploreOpen, onContact }) => {
     return (
         <SectionWrapper
             id="properties"
-            className="z-10 bg-surface text-brand-blue !justify-start !pt-28 !pb-8"
+            className="z-10 bg-brand-dark/80 backdrop-blur-2xl text-white !justify-start !pt-28 !pb-8"
         >
             <div className="container mx-auto px-4 w-full flex flex-col justify-center h-full overflow-hidden">
 
                 {/* Header Section (Unchanged) */}
                 <div className="flex flex-col md:flex-row justify-between items-end mb-6 md:mb-8 z-20 relative">
                     <div>
-                        <h2 className="text-4xl md:text-6xl font-heading leading-[0.9] text-brand-blue uppercase mb-2">
+                        <h2 className="text-4xl md:text-6xl font-heading leading-[0.9] text-white uppercase mb-2">
                             Featured <br /> <span className="text-brand-gold">Estates</span>
                         </h2>
-                        <p className="text-brand-blue/70 font-body text-sm md:text-base max-w-md border-l-2 border-brand-gold pl-4">
+                        <p className="text-white/70 font-body text-sm md:text-base max-w-md border-l-2 border-brand-gold pl-4">
                             Curated collections of Nigeria's most prestigious addresses.
                         </p>
                     </div>
 
                     <button
                         onClick={() => setIsExploreOpen(true)}
-                        className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold tracking-widest uppercase border-b-2 border-brand-blue pb-1 hover:text-brand-gold hover:border-brand-gold transition-all cursor-pointer"
+                        className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold tracking-widest uppercase border-b-2 border-white pb-1 hover:text-brand-gold hover:border-brand-gold transition-all cursor-pointer"
                     >
                         View All Properties <FiArrowUpRight className="text-lg" />
                     </button>

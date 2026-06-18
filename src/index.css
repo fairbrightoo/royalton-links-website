@@ -7,19 +7,20 @@
 /* 3. Define your Theme */
 @theme {
     /* --- Colors --- */
-    --color-brand-blue: #1f4572;      /* Yale Blue (Primary) */
-    --color-brand-blue-light: #1f6cc6; /* Sapphire Sky (Hover/Accent) */
-    --color-brand-blue-ice: #8fb5e0;  /* Baby Blue Ice (Subtle backgrounds) */
+    --color-brand-blue: #003399;      /* Royalton Blue */
+    --color-brand-blue-light: #3366cc; /* Lighter Blue */
+    --color-brand-blue-ice: #e6eefa;  /* Ice Blue */
+    --color-brand-purple: #9b2c98;    /* Royalton Purple */
 
-    --color-brand-gold: #c3a33c;      /* Golden Bronze (Primary Accent) */
-    --color-brand-gold-light: #e1d09b; /* Vanilla Custard (Secondary Accent) */
+    --color-brand-gold: #f58220;      /* Royalton Orange (replaces Gold) */
+    --color-brand-gold-light: #fbc899; /* Light Orange */
 
-    --color-brand-dark: #0e1b2a;      /* Carbon Black (Rich Dark) */
-    --color-brand-gray: #7c7e7c;      /* Grey (Text/Borders) */
+    --color-brand-dark: #05050a;      /* Dark from scratch */
+    --color-brand-gray: #a1a1aa;      /* Muted gray */
 
-    --color-surface: #fefdfa;         /* Porcelain (Main Light Background) */
-    --color-surface-alt: #f0e7cb;     /* Vanilla Cream (Alternative Light Background) */
-    --color-accent-red: #FF0000;
+    --color-surface: #ffffff;         /* Main Light Background */
+    --color-surface-alt: #f4f4f5;     /* Alternative Light Background */
+    --color-accent-red: #ef4444;
 
     /* --- Fonts --- */
     --font-heading: "Anton", sans-serif;
@@ -37,9 +38,33 @@
 /* 4. Global Styles */
 :root {
     font-family: var(--font-body);
-    background-color: var(--color-brand-blue);
+    background-color: var(--color-brand-dark);
     color: white;
     overflow-x: hidden;
+}
+
+/* Rebranding Gradients */
+.text-gradient-primary {
+    background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+    background: linear-gradient(135deg, var(--color-brand-orange), var(--color-brand-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Background Float Animation */
+@keyframes float-bg {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(50px, 50px) scale(1.1); }
+    100% { transform: translate(-50px, 100px) scale(0.9); }
+}
+
+.animate-float-bg {
+    animation: float-bg 20s infinite alternate;
 }
 
 /* Utility class for the big text */

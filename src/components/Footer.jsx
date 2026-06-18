@@ -20,7 +20,7 @@ const Footer = ({ setIsPrivacyOpen }) => {
 
     return (
         // Relative z-50 to sit on top of previous layers
-        <footer id="footer" className="relative z-50 bg-brand-dark text-white h-auto border-t border-white/10">
+        <footer id="footer" className="relative z-65 bg-brand-dark/80 backdrop-blur-2xl text-white h-auto border-t border-white/10">
             <div className="container mx-auto px-4 py-16 md:py-24">
 
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
@@ -28,7 +28,7 @@ const Footer = ({ setIsPrivacyOpen }) => {
                     {/* 1. Brand Column (Spans 5 cols) */}
                     <div className="md:col-span-5 flex flex-col gap-6">
                         <h2 className="text-5xl md:text-7xl font-heading leading-none text-white uppercase select-none">
-                            CHAMPIONS
+                            ROYALTON
                         </h2>
                         <p className="text-white/60 font-body max-w-sm leading-relaxed">
                             Redefining luxury living in Nigeria. We curate spaces that inspire, elevate, and endure.
@@ -71,14 +71,14 @@ const Footer = ({ setIsPrivacyOpen }) => {
                         <div className="space-y-6 font-body">
                             <div>
                                 <p className="text-xs text-white/40 uppercase mb-1">Head Office</p>
-                                <p className="text-lg">1059 Ademola Adetokunbo Cres, <br/>Wuse II, Abuja 900288</p>
+                                <p className="text-lg">Suite 2 and 5, Westwood Plaza, AYA, Asokoro</p>
                             </div>
                             <div>
-                                <a href="mailto:info@champions.com" className="flex items-center gap-3 text-white/80 hover:text-brand-gold transition-colors mb-2">
-                                    <FaEnvelope /> info@champions.com
+                                <a href="mailto:info@royaltonlinksproperties.com" className="flex items-center gap-3 text-white/80 hover:text-brand-gold transition-colors mb-2">
+                                    <FaEnvelope />info@royaltonlinksproperties.com
                                 </a>
-                                <a href="tel:+2348001234567" className="flex items-center gap-3 text-white/80 hover:text-brand-gold transition-colors">
-                                    <FaPhoneAlt /> +234 (800) 123-4567
+                                <a href="tel:+2349054090266" className="flex items-center gap-3 text-white/80 hover:text-brand-gold transition-colors">
+                                    <FaPhoneAlt /> +234 905 409 0266
                                 </a>
                             </div>
                         </div>
@@ -87,7 +87,7 @@ const Footer = ({ setIsPrivacyOpen }) => {
 
                 {/* --- Bottom Bar: Developer Credit --- */}
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/30 font-body">
-                    <p>© 2025 Champions Properties. All Rights Reserved.</p>
+                    <p>© 2025 Royalton Properties. All Rights Reserved.</p>
 
                     <div className="flex flex-col md:flex-row items-center gap-1 md:gap-4">
                         <span>Developed by <span className="text-brand-gold font-bold">Engr Bright Osisiogu</span></span>

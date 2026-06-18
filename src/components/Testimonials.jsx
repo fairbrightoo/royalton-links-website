@@ -9,7 +9,7 @@ const reviews = [
     {
         id: 1,
         text: "Champions Properties didn't just find us a house. They found us our sanctuary.",
-        author: "Emmanuel Oshi",
+        author: "Emmanuel Okafor",
         role: "CEO, TechCorp",
         image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop"
     },
@@ -83,7 +83,7 @@ const Testimonials = () => {
     return (
         <SectionWrapper
             id="testimonials"
-            className="z-40 bg-brand-blue text-white !justify-start !pt-28 md:!pt-32"
+            className="z-75 bg-brand-dark/80 backdrop-blur-2xl text-white !justify-start !pt-28 md:!pt-32"
         >
             <div ref={containerRef} className="container mx-auto px-4 h-full flex flex-col justify-between pb-12 md:pb-20">
 

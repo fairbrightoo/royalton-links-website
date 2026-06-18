@@ -10,50 +10,50 @@ gsap.registerPlugin(ScrollTrigger);
 // --- 8 MEMBER LAYOUT CONFIGURATION (Unchanged) ---
 const teamMembers = [
     {
-        id: 1, name: "Sarah Adebayo", role: "Lead Architect",
-        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
+        id: 1, name: "Samson Jamani", role: "HOD, Accounting Dept",
+        image: "src/assets/images/samson.png",
         socials: { linkedin: "#", twitter: "#" },
         style: { top: '0%', left: '2%', width: '16%', aspectRatio: '3/4', zIndex: 2 }
     },
     {
-        id: 2, name: "David Okon", role: "Senior Broker",
-        image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
+        id: 2, name: "Nelson Ogbonna", role: "HOD, Admin Dept",
+        image: "src/assets/images/nelson.png",
         socials: { linkedin: "#", mail: "#" },
         style: { top: '30%', left: '0%', width: '22%', aspectRatio: '4/3', zIndex: 3 }
     },
     {
-        id: 3, name: "Michelle Onoja", role: "Project Manager",
-        image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop",
+        id: 3, name: "Mr. Bassey Asukwo", role: "HOD, Human Resource Dept",
+        image: "src/assets/images/bassey.png",
         socials: { linkedin: "#" },
         style: { top: '55%', left: '8%', width: '24%', aspectRatio: '1/1', zIndex: 1 }
     },
     {
-        id: 4, name: "Emeka Nwosu", role: "Construction Head",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
+        id: 4, name: "Dr. Samuel Ucha", role: "Managing Director",
+        image: "src/assets/images/samuel.png",
         socials: { linkedin: "#", twitter: "#" },
         style: { top: '2%', left: '26%', width: '22%', aspectRatio: '3/5', zIndex: 2 }
     },
     {
-        id: 5, name: "Grace Okafor", role: "Interior Head",
-        image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop",
+        id: 5, name: "Freedom Oseyomon", role: "General Manager",
+        image: "src/assets/images/freedom.png",
         socials: { instagram: "#", linkedin: "#" },
         style: { top: '13%', left: '57%', width: '24%', aspectRatio: '3/5', zIndex: 10 }
     },
     {
-        id: 6, name: "Tunde Bakare", role: "Legal Counsel",
-        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop",
+        id: 6, name: "Job Idagu", role: "HOD, Site Dept",
+        image: "src/assets/images/job.png",
         socials: { linkedin: "#", mail: "#" },
         style: { top: '45%', left: '42%', width: '18%', aspectRatio: '3/4', zIndex: 5 }
     },
     {
-        id: 7, name: "Amina Yusuf", role: "Sales Director",
-        image: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?q=80&w=800&auto=format&fit=crop",
+        id: 7, name: "Annabel Agada", role: "Asst. HOD, Business Development",
+        image: "src/assets/images/annabel.png",
         socials: { linkedin: "#", instagram: "#" },
         style: { top: '5%', right: '2%', width: '18%', aspectRatio: '1/1', zIndex: 3 }
     },
     {
-        id: 8, name: "John Doe", role: "Marketing Lead",
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop",
+        id: 8, name: "Mr. Prince Nwobi", role: "Asst. General Manager",
+        image: "src/assets/images/prince.png",
         socials: { linkedin: "#", twitter: "#" },
         style: { top: '50%', right: '0%', width: '20%', aspectRatio: '4/3', zIndex: 12 }
     },
@@ -106,7 +106,7 @@ const Team = () => {
         <SectionWrapper
             id="team"
             // FIX 1: Reduced top padding (!pt-20 md:!pt-24) to lift Header UP
-            className="z-30 bg-surface text-brand-blue !justify-start !pt-20 md:!pt-24 overflow-hidden"
+            className="z-30 bg-brand-dark/80 backdrop-blur-2xl text-white !justify-start !pt-20 md:!pt-24 overflow-hidden"
         >
             <div className="container mx-auto px-4 h-full flex flex-col">
 
@@ -114,11 +114,11 @@ const Team = () => {
                 {/* Reduced bottom margin slightly to keep things tight */}
                 <div className="flex flex-col md:flex-row justify-between items-end mb-6 md:mb-10 relative z-10">
                     <div>
-                        <h2 className="text-4xl md:text-6xl font-heading leading-[0.9] text-brand-blue uppercase mb-4">
-                            The <br /> <span className="text-brand-gold">Champions</span>
+                        <h2 className="text-4xl md:text-6xl font-heading leading-[0.9] text-white uppercase mb-4">
+                            Our <br /> <span className="text-brand-gold">Royal Team</span>
                         </h2>
-                        <p className="text-brand-blue/70 font-body text-sm md:text-base max-w-md border-l-2 border-brand-gold pl-4">
-                            Meet the elite team of architects, designers, and agents crafting your legacy.
+                        <p className="text-white/70 font-body text-sm md:text-base max-w-md border-l-2 border-brand-gold pl-4">
+                            Meet the elite team of business savvy, dedicated and reliable professionals crafting your legacy.
                         </p>
                     </div>
                 </div>

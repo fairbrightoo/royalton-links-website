@@ -4,118 +4,193 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import RoyaltonLogo from "../assets/images/royalton-logo.svg";
+
 gsap.registerPlugin(ScrollTrigger);
 
-const Navbar = ({ setIsContactOpen }) => { // Accept the prop
+const Navbar = ({ setIsContactOpen }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const menuRef = useRef(null);
+
+    const drawerRef = useRef(null);
+    const backdropRef = useRef(null);
+    const linksRef = useRef([]);
 
     const [navStyle, setNavStyle] = useState({
-        bg: 'bg-brand-blue',
+        bg: 'bg-transparent',
         text: 'text-white'
     });
 
     const sections = [
-        { id: 'hero-section', bg: 'bg-brand-blue', text: 'text-white' },
-        { id: 'properties',   bg: 'bg-surface',    text: 'text-brand-blue' },
-        { id: 'about',        bg: 'bg-brand-dark', text: 'text-white' },
-        { id: 'team',         bg: 'bg-surface',    text: 'text-brand-blue' },
-        { id: 'testimonials', bg: 'bg-brand-blue', text: 'text-white' },
-        { id: 'footer',       bg: 'bg-brand-dark', text: 'text-white' },
+        { id: 'hero-section', bg: 'bg-transparent', text: 'text-white' },
+        { id: 'properties',   bg: 'bg-transparent', text: 'text-white' },
+        { id: 'about',        bg: 'bg-transparent', text: 'text-white' },
+        { id: 'team',         bg: 'bg-transparent', text: 'text-white' },
+        { id: 'testimonials', bg: 'bg-transparent', text: 'text-white' },
+        { id: 'footer',       bg: 'bg-transparent', text: 'text-white' },
     ];
 
+    /* NAVBAR COLOR SYNC */
     useGSAP(() => {
-        gsap.set(menuRef.current, { autoAlpha: 0 });
-
         sections.forEach((section) => {
             ScrollTrigger.create({
                 trigger: `#${section.id}`,
                 start: "top top+=10",
                 end: "bottom top",
-                refreshPriority: -1,
                 onEnter: () => setNavStyle({ bg: section.bg, text: section.text }),
                 onEnterBack: () => setNavStyle({ bg: section.bg, text: section.text }),
             });
         });
-
     }, []);
 
+    /* MOBILE + TABLET DRAWER ANIMATIONS */
     useGSAP(() => {
         if (isOpen) {
-            gsap.to(menuRef.current, { autoAlpha: 1, duration: 0.4, ease: "power2.out" });
+            gsap.to(backdropRef.current, {
+                autoAlpha: 1,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+
+            gsap.to(drawerRef.current, {
+                x: 0,
+                duration: 0.45,
+                ease: "power3.out"
+            });
+
+            gsap.fromTo(
+                linksRef.current,
+                { x: 30, autoAlpha: 0 },
+                {
+                    x: 0,
+                    autoAlpha: 1,
+                    duration: 0.35,
+                    stagger: 0.08,
+                    ease: "power2.out"
+                }
+            );
         } else {
-            gsap.to(menuRef.current, { autoAlpha: 0, duration: 0.4, ease: "power2.in" });
+            gsap.to(backdropRef.current, {
+                autoAlpha: 0,
+                duration: 0.25,
+                ease: "power2.in"
+            });
+
+            gsap.to(drawerRef.current, {
+                x: "100%",
+                duration: 0.35,
+                ease: "power2.in"
+            });
         }
     }, [isOpen]);
 
     return (
         <>
-            <nav className={`fixed top-0 left-0 w-full z-[100] flex items-center justify-between px-6 md:px-20 py-6 transition-colors duration-500 ${navStyle.bg} ${navStyle.text} pointer-events-none`}>
+            {/* NAVBAR */}
+            <nav
+                className={`fixed top-0 left-0 w-full z-[80] flex items-center justify-between 
+                px-4 sm:px-6 md:px-10 lg:px-20 py-4 md:py-5 lg:py-6 transition-colors duration-500 
+                ${navStyle.bg} ${navStyle.text} pointer-events-none`}
+            >
 
-                <div className="font-heading text-2xl md:text-3xl tracking-wider z-50 relative pointer-events-auto">
-                    CHAMPIONS
+                {/* LOGO */}
+                <div className="flex items-center gap-3 pointer-events-auto">
+                    <img
+                        src={RoyaltonLogo}
+                        alt="Royalton Logo"
+                        className="
+                            h-12 sm:h-14 md:h-16 lg:h-20
+                            w-auto object-contain
+                            lg:[transform:scale(1.7)]
+                        "
+                        style={{
+                            transform: "scale(1.2)",          // mobile & tablet
+                            transformOrigin: "left center",
+                        }}
+                    />
+
+                    <div className="flex flex-col leading-tight">
+                        <span className="font-heading text-xl md:text-2xl lg:text-3xl tracking-widest text-gradient-primary uppercase">
+                            Royalton Properties
+                        </span>
+
+                        <span className="
+                            font-body
+                            text-[0.55rem] sm:text-[0.65rem] md:text-[0.70rem] lg:text-xs
+                            tracking-[0.15em]
+                            block whitespace-nowrap opacity-90 mt-0 text-brand-purple
+                        ">
+                            Realty and Reliability........
+                        </span>
+                    </div>
                 </div>
 
-                <div className="hidden md:flex gap-8 font-body text-lg font-bold tracking-wide pointer-events-auto">
-                    <a href="#properties" className="hover:text-brand-gold transition-colors">PROPERTIES</a>
-                    <a href="#about" className="hover:text-brand-gold transition-colors">AGENTS</a>
+                {/* DESKTOP LINKS (LG AND UP ONLY) */}
+                <div className="hidden lg:flex gap-8 font-body text-lg font-bold tracking-wide pointer-events-auto">
+                    <a href="#properties" className="hover:text-brand-gold transition-colors">OUR PROPERTIES</a>
+                    <a href="#about" className="hover:text-brand-gold transition-colors">ABOUT US</a>
                     <a href="#footer" className="hover:text-brand-gold transition-colors">LOCATIONS</a>
 
-                    {/* --- FIX: Changed hover color to Gold --- */}
                     <button
                         onClick={() => setIsContactOpen(true)}
-                        className="hover:text-brand-gold transition-colors uppercase font-bold tracking-wide"
+                        className="hover:text-brand-gold transition-colors uppercase font-bold"
                     >
                         CONTACT
                     </button>
                 </div>
 
-                <div className="flex gap-6 text-xl items-center z-50 relative pointer-events-auto">
-                    <div className="hidden xs:flex gap-6">
-                        <FiUser className="cursor-pointer hover:scale-110 transition-transform" />
-                        <div className="relative cursor-pointer hover:scale-110 transition-transform">
-                            <FiShoppingBag />
-                            <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-red opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-3 w-3 bg-accent-red"></span>
-                            </span>
-                        </div>
-                    </div>
-
-                    {!isOpen && (
-                        <button
-                            className="md:hidden text-3xl focus:outline-none cursor-pointer"
-                            onClick={() => setIsOpen(true)}
-                        >
-                            <FiMenu />
-                        </button>
-                    )}
+                {/* MOBILE & TABLET MENU BUTTON */}
+                <div className="flex gap-6 text-xl items-center pointer-events-auto lg:hidden">
+                    <button
+                        className="text-3xl cursor-pointer"
+                        onClick={() => setIsOpen(true)}
+                    >
+                        <FiMenu />
+                    </button>
                 </div>
             </nav>
 
+            {/* BACKDROP */}
             <div
-                ref={menuRef}
-                className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center md:hidden text-white opacity-0 invisible"
+                ref={backdropRef}
+                className="fixed inset-0 bg-black/70 backdrop-blur-sm opacity-0 pointer-events-auto z-[90]"
+                onClick={() => setIsOpen(false)}
+            ></div>
+
+            {/* DRAWER */}
+            <div
+                ref={drawerRef}
+                className="fixed top-0 right-0 h-full w-[80%] max-w-[320px]
+                bg-brand-dark text-white z-[100] px-8 py-10 flex flex-col gap-12
+                translate-x-full"
             >
-                <button
-                    className="absolute top-6 right-6 text-4xl text-white/80 hover:text-white transition-colors focus:outline-none cursor-pointer pointer-events-auto"
-                    onClick={() => setIsOpen(false)}
-                >
-                    <FiX />
-                </button>
 
-                <div className="flex flex-col gap-10 font-heading text-4xl tracking-widest text-center pointer-events-auto">
-                    <a href="#properties" onClick={() => setIsOpen(false)} className="hover:text-brand-gold transition-colors">PROPERTIES</a>
-                    <a href="#about" onClick={() => setIsOpen(false)} className="hover:text-brand-gold transition-colors">AGENTS</a>
-                    <a href="#footer" onClick={() => setIsOpen(false)} className="hover:text-brand-gold transition-colors">LOCATIONS</a>
-
-                    {/* Mobile Contact Button */}
-                    <button
-                        onClick={() => { setIsOpen(false); setIsContactOpen(true); }}
-                        className="hover:text-brand-gold transition-colors uppercase"
-                    >
-                        CONTACT
+                {/* Drawer Header */}
+                <div className="flex items-center justify-between">
+                    <img
+                        src={RoyaltonLogo}
+                        className="h-12 w-auto object-contain"
+                        alt="Logo"
+                    />
+                    <button onClick={() => setIsOpen(false)} className="text-3xl">
+                        <FiX />
                     </button>
+                </div>
+
+                {/* Drawer Links */}
+                <div className="flex flex-col gap-8 text-2xl font-heading tracking-wider">
+                    {["PROPERTIES", "ABOUT US", "LOCATIONS", "CONTACT"].map((item, i) => (
+                        <div
+                            key={item}
+                            ref={el => (linksRef.current[i] = el)}
+                            className="opacity-0 cursor-pointer hover:text-brand-gold"
+                            onClick={() => {
+                                setIsOpen(false);
+                                if (item === "CONTACT") setIsContactOpen(true);
+                            }}
+                        >
+                            {item}
+                        </div>
+                    ))}
                 </div>
             </div>
         </>

@@ -40,7 +40,7 @@ const SectionWrapper = ({ children, id, className, style }) => {
 
     const wrapperClasses = isHero
         ? `h-screen w-full sticky top-0 overflow-hidden ${className || ''}`
-        : `h-screen w-full sticky top-0 overflow-hidden flex flex-col justify-center pt-40 pb-24 ${className || ''}`;
+        : `h-screen w-full sticky top-0 overflow-hidden flex flex-col justify-center pt-20 md:pt-40 pb-12 md:pb-24 ${className || ''}`;
 
     return (
         <section
