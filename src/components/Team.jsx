@@ -10,50 +10,50 @@ gsap.registerPlugin(ScrollTrigger);
 // --- 8 MEMBER LAYOUT CONFIGURATION (Unchanged) ---
 const teamMembers = [
     {
-        id: 1, name: "Samson Jamani", role: "HOD, Accounting Dept",
-        image: "src/assets/images/samson.png",
+        id: 1, name: "Chinedu Okafor", role: "HOD, Accounting Dept",
+        image: "src/assets/images/placeholder_team_1.png",
         socials: { linkedin: "#", twitter: "#" },
         style: { top: '0%', left: '2%', width: '16%', aspectRatio: '3/4', zIndex: 2 }
     },
     {
-        id: 2, name: "Nelson Ogbonna", role: "HOD, Admin Dept",
-        image: "src/assets/images/nelson.png",
+        id: 2, name: "Adebayo Ogunlesi", role: "HOD, Admin Dept",
+        image: "src/assets/images/placeholder_team_2.png",
         socials: { linkedin: "#", mail: "#" },
         style: { top: '30%', left: '0%', width: '22%', aspectRatio: '4/3', zIndex: 3 }
     },
     {
-        id: 3, name: "Mr. Bassey Asukwo", role: "HOD, Human Resource Dept",
-        image: "src/assets/images/bassey.png",
+        id: 3, name: "Aliyu Abubakar", role: "HOD, Human Resource Dept",
+        image: "src/assets/images/placeholder_team_3.png",
         socials: { linkedin: "#" },
         style: { top: '55%', left: '8%', width: '24%', aspectRatio: '1/1', zIndex: 1 }
     },
     {
-        id: 4, name: "Dr. Samuel Ucha", role: "Managing Director",
-        image: "src/assets/images/samuel.png",
+        id: 4, name: "Dr. Oluwaseun Adeleke", role: "Managing Director",
+        image: "src/assets/images/placeholder_team_4.png",
         socials: { linkedin: "#", twitter: "#" },
         style: { top: '2%', left: '26%', width: '22%', aspectRatio: '3/5', zIndex: 2 }
     },
     {
-        id: 5, name: "Freedom Oseyomon", role: "General Manager",
-        image: "src/assets/images/freedom.png",
+        id: 5, name: "Zainab Usman", role: "General Manager",
+        image: "src/assets/images/placeholder_team_5.png",
         socials: { instagram: "#", linkedin: "#" },
         style: { top: '13%', left: '57%', width: '24%', aspectRatio: '3/5', zIndex: 10 }
     },
     {
-        id: 6, name: "Job Idagu", role: "HOD, Site Dept",
-        image: "src/assets/images/job.png",
+        id: 6, name: "Nnamdi Chukwu", role: "HOD, Site Dept",
+        image: "src/assets/images/placeholder_team_6.png",
         socials: { linkedin: "#", mail: "#" },
         style: { top: '45%', left: '42%', width: '18%', aspectRatio: '3/4', zIndex: 5 }
     },
     {
-        id: 7, name: "Annabel Agada", role: "Asst. HOD, Business Development",
-        image: "src/assets/images/annabel.png",
+        id: 7, name: "Amina Bello", role: "Asst. HOD, Business Development",
+        image: "src/assets/images/placeholder_team_7.png",
         socials: { linkedin: "#", instagram: "#" },
         style: { top: '5%', right: '2%', width: '18%', aspectRatio: '1/1', zIndex: 3 }
     },
     {
-        id: 8, name: "Mr. Prince Nwobi", role: "Asst. General Manager",
-        image: "src/assets/images/prince.png",
+        id: 8, name: "Mr. Tunde Bakare", role: "Asst. General Manager",
+        image: "src/assets/images/placeholder_team_8.png",
         socials: { linkedin: "#", twitter: "#" },
         style: { top: '50%', right: '0%', width: '20%', aspectRatio: '4/3', zIndex: 12 }
     },
