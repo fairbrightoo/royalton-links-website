@@ -36,5 +36,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: ./public_html/
+          timeout: 300000
           # Optional: delete files on server that don't exist locally
           # dangerous-clean-slate: true
