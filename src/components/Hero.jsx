@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -26,9 +26,8 @@ const videos = [
 
 const Hero = () => {
     const containerRef = useRef(null);
-    const championsRef = useRef(null);
-    const subtextLeftRef = useRef(null);
-    const subtextRightRef = useRef(null);
+    const textRef = useRef(null);
+    const videoWindowRef = useRef(null);
     const videoRefs = useRef([]);
 
     const [activeVideoIndex, setActiveVideoIndex] = useState(0);
@@ -53,6 +52,7 @@ const Hero = () => {
                 // Fade in the active video very smoothly
                 gsap.to(videoEl, {
                     opacity: 1,
+                    scale: 1,
                     duration: 2.5,
                     ease: "sine.inOut"
                 });
@@ -60,6 +60,7 @@ const Hero = () => {
                 // Fade out the inactive videos
                 gsap.to(videoEl, {
                     opacity: 0,
+                    scale: 1.05, // Slight scale effect for depth
                     duration: 2.5,
                     ease: "sine.inOut"
                 });
@@ -73,148 +74,149 @@ const Hero = () => {
     useGSAP(() => {
         const tl = gsap.timeline({ delay: 0.5 });
 
-        tl.fromTo(championsRef.current,
-            { y: "100%" },
-            { y: "0%", duration: 1.5, ease: "power4.out" }
+        // Fade in the sleek dark background
+        tl.fromTo(containerRef.current, 
+            { opacity: 0 }, 
+            { opacity: 1, duration: 2, ease: "power2.inOut" }
         );
 
-        tl.fromTo([subtextLeftRef.current, subtextRightRef.current],
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
-            "+=0.1"
+        // Slide in the text content from the left
+        tl.fromTo(textRef.current,
+            { opacity: 0, x: -50 },
+            { opacity: 1, x: 0, duration: 1.5, ease: "power4.out" },
+            "-=1"
         );
 
+        // Animate individual letters in headings
         tl.to(".letter-anim", {
             opacity: 1,
-            duration: 0.05,
+            duration: 0.03,
             stagger: { amount: 1, from: "random" }
-        }, "+=0.2");
+        }, "-=1");
 
+        // Slide in the Video Window from the right
+        tl.fromTo(videoWindowRef.current,
+            { opacity: 0, x: 100, rotationY: -15 },
+            { opacity: 1, x: 0, rotationY: 0, duration: 2, ease: "power4.out", transformPerspective: 1000 },
+            "-=1.5"
+        );
+
+        // Fade in UI buttons
         tl.to(".fade-in-anim", {
             opacity: 1,
             y: 0,
             duration: 1,
             stagger: 0.2
-        }, "+=0.1");
+        }, "-=0.5");
 
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="relative w-full h-screen bg-brand-dark/80 backdrop-blur-2xl overflow-hidden">
-
+        <section ref={containerRef} className="relative w-full min-h-screen bg-[#07070a] overflow-hidden flex items-center pt-24 md:pt-32 pb-12 opacity-0">
+            
             {/* ----------------------------------------- */}
-            {/* VIDEO BACKGROUND LAYER */}
+            {/* DEEP SLEEK GRADIENT BACKGROUND LAYER      */}
             {/* ----------------------------------------- */}
-            <div className="absolute inset-0 z-0">
-                {videos.map((vid, idx) => (
-                    <video
-                        key={idx}
-                        ref={el => videoRefs.current[idx] = el}
-                        src={vid}
-                        className="absolute inset-0 w-full h-full object-cover contrast-110 saturate-110 brightness-105"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        style={{ opacity: idx === 0 ? 1 : 0 }}
-                    />
-                ))}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                {/* Top-left subtle gold/orange glow */}
+                <div className="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-brand-gold/10 blur-[120px]"></div>
                 
-                {/* Sleek vignette/gradient overlay to make the canvas modern and text readable */}
-                <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/60 via-transparent to-brand-dark/90 pointer-events-none"></div>
-                <div className="absolute inset-0 bg-brand-dark/20 mix-blend-overlay pointer-events-none"></div>
+                {/* Bottom-right deep blue glow */}
+                <div className="absolute top-[40%] -right-[10%] w-[60vw] h-[60vw] rounded-full bg-brand-blue/15 blur-[150px]"></div>
+                
+                {/* Subtle dark grid overlay for architectural feel */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] mix-blend-overlay"></div>
+                
+                {/* Dark Vignette to keep edges shadowy and mysterious */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_#07070a_100%)]"></div>
             </div>
 
-            {/* ----------------------------------------- */}
-            {/* BACKGROUND TEXT */}
-            {/* ----------------------------------------- */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 -translate-y-12 md:translate-y-0">
-                <div className="relative w-full px-4 flex justify-center">
-                    <div ref={subtextLeftRef} className="absolute -top-12 md:-top-20 lg:-top-32 left-[5%] lg:left-[10%] opacity-0 flex flex-col items-end">
-                        <p className="text-[1.75rem] md:text-[3.75rem] lg:text-[6rem] font-body font-black tracking-widest bg-gradient-to-r from-brand-blue-ice to-brand-purple bg-clip-text text-transparent leading-none pb-2">
-                            Realty
-                        </p>
-                        <span className="text-[4rem] md:text-[9rem] lg:text-[16rem] font-heading font-bold text-brand-gold/80 leading-none mt-2 md:mt-4 lg:mt-8 -mr-16 md:-mr-32 lg:-mr-[20vw]">
-                            &amp;
-                        </span>
-                    </div>
-
-                    <div className="overflow-hidden w-full text-center">
-                        <h1
-                            ref={championsRef}
-                            className="font-heading text-[13vw] md:text-[15vw] leading-none text-gradient-accent select-none tracking-tighter uppercase opacity-90 translate-y-full pb-4"
-                        >
-                            ROYALTON
-                        </h1>
-                    </div>
-
-                    <div ref={subtextRightRef} className="absolute -bottom-10 md:-bottom-16 lg:-bottom-24 right-[5%] lg:right-[10%] opacity-0">
-                        <p className="text-[1.75rem] md:text-[3.75rem] lg:text-[6rem] font-body font-black tracking-widest bg-gradient-to-l from-brand-blue-ice to-brand-purple bg-clip-text text-transparent leading-none pb-2">
-                            Reliability
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            {/* ----------------------------------------- */}
-            {/* UI GROUP 1 */}
-            {/* ----------------------------------------- */}
-            <div className="absolute z-20
-                bottom-32 right-6 text-right items-end
-                md:bottom-12 md:left-10 md:text-left md:items-start md:right-auto
-                lg:bottom-14 lg:left-20
-
-                max-w-[80%] md:max-w-2xl lg:max-w-4xl flex flex-col gap-6 md:gap-6 lg:gap-10 pointer-events-none">
-
-                <div>
-                    <h2 className="text-2xl md:text-4xl lg:text-5xl font-heading mb-2 md:mb-3 tracking-tight text-white leading-tight drop-shadow-lg">
-                        <SplitText>Modern Living Redefined</SplitText>
-                    </h2>
-
-                    <p className="text-sm md:text-lg lg:text-xl text-white/90 font-body leading-relaxed font-medium tracking-normal drop-shadow-md">
-                        <SplitText>Experience the pinnacle of architectural design.</SplitText> <br className="hidden md:block" />
-                        <SplitText>Sustainable, smart, and built for the future.</SplitText>
+            <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center justify-between h-full gap-12 lg:gap-8">
+                
+                {/* ----------------------------------------- */}
+                {/* LEFT SIDE: TYPOGRAPHY & BRANDING          */}
+                {/* ----------------------------------------- */}
+                <div ref={textRef} className="w-full lg:w-5/12 flex flex-col justify-center text-left pt-12 md:pt-0">
+                    
+                    <h1 className="font-heading text-[15vw] md:text-[10vw] lg:text-[7rem] xl:text-[8.5rem] leading-[0.85] text-gradient-accent select-none tracking-tighter uppercase mb-4">
+                        ROYALTON
+                    </h1>
+                    
+                    <p className="text-lg md:text-2xl xl:text-3xl text-brand-gold font-body font-medium tracking-widest uppercase mb-8 md:mb-12 border-l-4 border-brand-gold pl-4">
+                        Realty & Reliability
                     </p>
+
+                    <div className="max-w-md">
+                        <h2 className="text-2xl md:text-3xl xl:text-4xl font-heading text-white mb-4 leading-tight drop-shadow-lg">
+                            <SplitText>Modern Living Redefined</SplitText>
+                        </h2>
+
+                        <p className="text-sm md:text-base xl:text-lg text-white/70 font-body leading-relaxed">
+                            Experience the pinnacle of architectural design. Sustainable, smart, and built for the future. We curate spaces that inspire, elevate, and endure.
+                        </p>
+                    </div>
+
+                    {/* Navigation Buttons for Video Carousel */}
+                    <div className="flex gap-4 mt-8 md:mt-12 pointer-events-auto fade-in-anim opacity-0 translate-y-4">
+                        <button
+                            onClick={prevVideo}
+                            className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center justify-center text-white hover:bg-brand-gold hover:text-brand-dark hover:border-brand-gold transition-all duration-300 group shadow-lg"
+                        >
+                            <FiArrowLeft className="text-xl md:text-2xl group-hover:-translate-x-1 transition-transform" />
+                        </button>
+
+                        <button
+                            onClick={nextVideo}
+                            className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center justify-center text-white hover:bg-brand-gold hover:text-brand-dark hover:border-brand-gold transition-all duration-300 group shadow-lg"
+                        >
+                            <FiArrowRight className="text-xl md:text-2xl group-hover:translate-x-1 transition-transform" />
+                        </button>
+                    </div>
+
                 </div>
 
-                <div className="flex gap-3 md:gap-4 lg:gap-6 pointer-events-auto fade-in-anim opacity-0 translate-y-4 justify-end md:justify-start">
-                    <button
-                        onClick={prevVideo}
-                        className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20
-                        rounded-full border border-white/40 bg-brand-dark/30 backdrop-blur-md flex items-center justify-center
-                        text-white hover:bg-white hover:text-brand-dark hover:border-white transition-all duration-300 group pointer-events-auto shadow-xl"
-                    >
-                        <FiArrowLeft className="text-xl md:text-3xl lg:text-5xl" />
-                    </button>
+                {/* ----------------------------------------- */}
+                {/* RIGHT SIDE: GLASSMORPHISM VIDEO WINDOW    */}
+                {/* ----------------------------------------- */}
+                <div ref={videoWindowRef} className="w-full lg:w-7/12 flex justify-end items-center mt-4 lg:mt-0 opacity-0 perspective-1000 relative z-20">
+                    
+                    {/* Glassmorphism Container */}
+                    <div className="relative w-full max-w-4xl aspect-[16/10] md:aspect-video rounded-2xl md:rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl p-2 md:p-4 overflow-visible group">
+                        
+                        {/* Golden Glow Accent behind the card */}
+                        <div className="absolute -top-10 -right-10 w-32 h-32 md:w-64 md:h-64 bg-brand-gold/20 rounded-full blur-[60px] md:blur-[100px] z-[-1] transition-all duration-700 group-hover:bg-brand-gold/30"></div>
+                        
+                        {/* Blue Glow Accent behind the card */}
+                        <div className="absolute -bottom-10 -left-10 w-32 h-32 md:w-64 md:h-64 bg-brand-blue/30 rounded-full blur-[60px] md:blur-[100px] z-[-1] transition-all duration-700 group-hover:bg-brand-blue/40"></div>
 
-                    <button
-                        onClick={nextVideo}
-                        className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20
-                        rounded-full border border-white/40 bg-brand-dark/30 backdrop-blur-md flex items-center justify-center
-                        text-white hover:bg-white hover:text-brand-dark hover:border-white transition-all duration-300 group pointer-events-auto shadow-xl"
-                    >
-                        <FiArrowRight className="text-xl md:text-3xl lg:text-5xl" />
-                    </button>
+                        {/* Inner Video Container (Rounded, cuts off video edges) */}
+                        <div className="relative w-full h-full rounded-xl md:rounded-[1.5rem] overflow-hidden bg-black shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
+                            
+                            {videos.map((vid, idx) => (
+                                <video
+                                    key={idx}
+                                    ref={el => videoRefs.current[idx] = el}
+                                    src={vid}
+                                    className="absolute inset-0 w-full h-full object-cover transform scale-105"
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    style={{ opacity: idx === 0 ? 1 : 0 }}
+                                />
+                            ))}
+
+                            {/* Inner Vignette for cinematic look */}
+                            <div className="absolute inset-0 shadow-[inset_0_0_50px_rgba(0,0,0,0.4)] pointer-events-none mix-blend-overlay"></div>
+                            
+                            {/* Glass Reflections overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-white/5 pointer-events-none mix-blend-overlay"></div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
 
-            {/* ----------------------------------------- */}
-            {/* UI GROUP 2 */}
-            {/* ----------------------------------------- */}
-            <div
-                className="absolute z-20 pointer-events-none
-                top-28 left-6 text-left
-                md:top-auto md:bottom-12 md:left-auto md:right-10 md:text-right
-                lg:bottom-16 lg:right-20"
-            >
-                <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading text-white drop-shadow-lg">
-                    <SplitText>Start Your Journey</SplitText>
-                </h2>
-                <p className="text-xs md:text-base lg:text-xl text-white/80 font-body fade-in-anim opacity-0 translate-y-4 drop-shadow-md">
-                    EST. 2025
-                </p>
             </div>
-
         </section>
     );
 };
