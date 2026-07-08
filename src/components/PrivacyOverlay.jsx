@@ -33,7 +33,7 @@ const PrivacyOverlay = ({ onClose }) => {
                 <div className="p-8 overflow-y-auto space-y-4 font-body text-white/80">
                     <p>Last updated: November 2025</p>
                     <h3 className="text-xl font-bold text-brand-gold">1. Introduction</h3>
-                    <p>Welcome to Champions Properties. We respect your privacy...</p>
+                    <p>Welcome to Royalton Links Properties. We respect your privacy...</p>
                     {/* Add more dummy text here */}
                 </div>
             </div>

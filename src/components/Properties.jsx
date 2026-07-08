@@ -14,7 +14,7 @@ const Properties = ({ setIsExploreOpen, onContact }) => {
     return (
         <SectionWrapper
             id="properties"
-            className="z-10 bg-brand-dark/80 backdrop-blur-2xl text-white !justify-start !pt-28 !pb-8"
+            className="z-10 bg-brand-dark/80 backdrop-blur-2xl text-white !justify-start !pt-20 md:!pt-28 !pb-8"
         >
             <div className="container mx-auto px-4 w-full flex flex-col justify-center h-full overflow-hidden">
 

@@ -92,13 +92,13 @@ const ContactOverlay = ({ onClose }) => {
                                 </div>
                                 <div>
                                     <p className="text-xs text-brand-gold font-bold uppercase tracking-widest mb-1">Email Us</p>
-                                    <p className="text-sm text-white/90">info@champions.com</p>
+                                    <p className="text-sm text-white/90">info@royaltonlinksproperties.com</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="mt-10 pt-10 border-t border-white/10 text-xs text-white/30 contact-item hidden md:block">
-                        EST. 2025 CHAMPIONS PROPERTIES
+                        EST. 2023 ROYALTON LINKS PROPERTIES
                     </div>
                 </div>
 

@@ -8,7 +8,7 @@ import { useGSAP } from "@gsap/react";
 const reviews = [
     {
         id: 1,
-        text: "Champions Properties didn't just find us a house. They found us our sanctuary.",
+        text: "Royalton Links Properties didn't just find us a house. They found us our sanctuary.",
         author: "Emmanuel Okafor",
         role: "CEO, TechCorp",
         image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop"
@@ -22,7 +22,7 @@ const reviews = [
     },
     {
         id: 3,
-        text: "Investing with Champions was the best financial decision I made this decade.",
+        text: "Investing with Royalton Links Properties was the best financial decision I made this decade.",
         author: "Tunde Bakare",
         role: "Real Estate Investor",
         image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop"

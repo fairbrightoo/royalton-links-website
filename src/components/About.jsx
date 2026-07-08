@@ -64,7 +64,7 @@ const About = () => {
                 <div className="relative h-[25vh] md:h-[60vh] w-full rounded-2xl overflow-hidden group">
                     <img
                         src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2400&auto=format&fit=crop"
-                        alt="About Champions"
+                        alt="About Royalton Links"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     {/* Gold Overlay */}

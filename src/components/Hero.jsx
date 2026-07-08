@@ -137,7 +137,7 @@ const Hero = () => {
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="relative w-full min-h-screen bg-[#07070a] overflow-hidden flex items-center pt-24 md:pt-32 pb-12 opacity-0">
+        <section ref={containerRef} className="relative w-full min-h-[100dvh] bg-[#07070a] overflow-hidden flex items-center pt-24 md:pt-32 pb-8 md:pb-12 opacity-0">
             
             {/* ----------------------------------------- */}
             {/* DEEP SLEEK GRADIENT BACKGROUND LAYER      */}
@@ -156,7 +156,7 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_#07070a_100%)]"></div>
             </div>
 
-            <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center justify-between h-full gap-12 lg:gap-8">
+            <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center justify-between h-full gap-6 md:gap-12 lg:gap-8">
                 
                 {/* Stitched & Faded Background Portrait - Left Side */}
                 <div className="absolute top-1/2 left-0 md:left-12 -translate-y-1/2 w-[120vw] md:w-[60vw] aspect-square z-[-1] pointer-events-none opacity-15 mix-blend-luminosity filter grayscale-[50%] transition-opacity duration-1000" style={{
@@ -223,7 +223,7 @@ const Hero = () => {
                 {/* ----------------------------------------- */}
                 {/* RIGHT SIDE: GLASSMORPHISM VIDEO WINDOW    */}
                 {/* ----------------------------------------- */}
-                <div ref={videoWindowRef} className="w-full lg:w-7/12 flex justify-center lg:justify-end items-center mt-8 lg:mt-0 opacity-0 perspective-1000 relative z-20">
+                <div ref={videoWindowRef} className="w-full lg:w-7/12 flex justify-center lg:justify-end items-center opacity-0 perspective-1000 relative z-20">
                     
                     {/* Glassmorphism Container */}
                     <div className="relative w-full max-w-6xl aspect-[4/3] md:aspect-[16/10] rounded-2xl md:rounded-[2.5rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl p-3 md:p-6 overflow-visible group">
