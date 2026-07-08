@@ -7,6 +7,11 @@ import { useGSAP } from "@gsap/react";
 import royaltonVid from '../assets/videos/royalton-vid.mp4';
 import primeluxVid from '../assets/videos/primelux-exclusive.mp4';
 
+// Import CEO portrait
+import ceoPortrait from '../assets/images/ceo-portrait.jpg';
+import partnerPortrait from '../assets/images/partner-portrait.jpg';
+
+
 const SplitText = ({ children, className }) => {
     return (
         <span className={className}>
@@ -19,9 +24,19 @@ const SplitText = ({ children, className }) => {
     );
 };
 
-const videos = [
-    royaltonVid,
-    primeluxVid
+const slides = [
+    {
+        video: royaltonVid,
+        subtext: "Realty & Reliability",
+        title: "Modern Living Redefined",
+        description: "Experience the pinnacle of architectural design. Sustainable, smart, and built for the future. We curate spaces that inspire, elevate, and endure."
+    },
+    {
+        video: primeluxVid,
+        subtext: "Strategic Land Banking",
+        title: "Securing Tomorrow, Today",
+        description: "We identify and hold prime land assets ahead of infrastructure development, creating structured investment products with premium ROI for forward-looking investors."
+    }
 ];
 
 const Hero = () => {
@@ -29,6 +44,7 @@ const Hero = () => {
     const textRef = useRef(null);
     const videoWindowRef = useRef(null);
     const videoRefs = useRef([]);
+    const textRefs = useRef([]);
 
     const [activeVideoIndex, setActiveVideoIndex] = useState(0);
 
@@ -36,11 +52,11 @@ const Hero = () => {
     // VIDEO CAROUSEL LOGIC
     // -------------------------------------------------
     const nextVideo = () => {
-        setActiveVideoIndex((prev) => (prev + 1) % videos.length);
+        setActiveVideoIndex((prev) => (prev + 1) % slides.length);
     };
 
     const prevVideo = () => {
-        setActiveVideoIndex((prev) => (prev - 1 + videos.length) % videos.length);
+        setActiveVideoIndex((prev) => (prev - 1 + slides.length) % slides.length);
     };
 
     // Smooth "Melting Ice" Crossfade Transition
@@ -64,6 +80,15 @@ const Hero = () => {
                     duration: 2.5,
                     ease: "sine.inOut"
                 });
+            }
+        });
+
+        textRefs.current.forEach((textEl, idx) => {
+            if (!textEl) return;
+            if (idx === activeVideoIndex) {
+                gsap.to(textEl, { opacity: 1, y: 0, duration: 1.5, ease: "power3.out" });
+            } else {
+                gsap.to(textEl, { opacity: 0, y: 10, duration: 1.5, ease: "power3.inOut" });
             }
         });
     }, [activeVideoIndex]);
@@ -133,6 +158,15 @@ const Hero = () => {
 
             <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center justify-between h-full gap-12 lg:gap-8">
                 
+                {/* Stitched & Faded Background Portrait - Left Side */}
+                <div className="absolute top-1/2 left-0 md:left-12 -translate-y-1/2 w-[120vw] md:w-[60vw] aspect-square z-[-1] pointer-events-none opacity-15 mix-blend-luminosity filter grayscale-[50%] transition-opacity duration-1000" style={{
+                    backgroundImage: `url(${partnerPortrait})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center top',
+                    maskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 70%)',
+                    WebkitMaskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 70%)'
+                }}></div>
+
                 {/* ----------------------------------------- */}
                 {/* LEFT SIDE: TYPOGRAPHY & BRANDING          */}
                 {/* ----------------------------------------- */}
@@ -142,18 +176,29 @@ const Hero = () => {
                         ROYALTON
                     </h1>
                     
-                    <p className="text-lg md:text-2xl xl:text-3xl text-brand-gold font-body font-medium tracking-widest uppercase mb-8 md:mb-12 border-l-4 border-brand-gold pl-4">
-                        Realty & Reliability
-                    </p>
+                    <div className="relative min-h-[250px] w-full">
+                        {slides.map((slide, idx) => (
+                            <div 
+                                key={idx}
+                                ref={el => textRefs.current[idx] = el}
+                                className="absolute top-0 left-0 w-full"
+                                style={{ opacity: idx === 0 ? 1 : 0, pointerEvents: idx === activeVideoIndex ? 'auto' : 'none' }}
+                            >
+                                <p className="text-lg md:text-2xl xl:text-3xl text-brand-gold font-body font-medium tracking-widest uppercase mb-8 md:mb-12 border-l-4 border-brand-gold pl-4">
+                                    {slide.subtext}
+                                </p>
 
-                    <div className="max-w-md">
-                        <h2 className="text-2xl md:text-3xl xl:text-4xl font-heading text-white mb-4 leading-tight drop-shadow-lg">
-                            <SplitText>Modern Living Redefined</SplitText>
-                        </h2>
+                                <div className="max-w-md">
+                                    <h2 className="text-2xl md:text-3xl xl:text-4xl font-heading text-white mb-4 leading-tight drop-shadow-lg">
+                                        <SplitText>{slide.title}</SplitText>
+                                    </h2>
 
-                        <p className="text-sm md:text-base xl:text-lg text-white/70 font-body leading-relaxed">
-                            Experience the pinnacle of architectural design. Sustainable, smart, and built for the future. We curate spaces that inspire, elevate, and endure.
-                        </p>
+                                    <p className="text-sm md:text-base xl:text-lg text-white/70 font-body leading-relaxed">
+                                        {slide.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
                     {/* Navigation Buttons for Video Carousel */}
@@ -178,10 +223,10 @@ const Hero = () => {
                 {/* ----------------------------------------- */}
                 {/* RIGHT SIDE: GLASSMORPHISM VIDEO WINDOW    */}
                 {/* ----------------------------------------- */}
-                <div ref={videoWindowRef} className="w-full lg:w-7/12 flex justify-end items-center mt-4 lg:mt-0 opacity-0 perspective-1000 relative z-20">
+                <div ref={videoWindowRef} className="w-full lg:w-7/12 flex justify-center lg:justify-end items-center mt-8 lg:mt-0 opacity-0 perspective-1000 relative z-20">
                     
                     {/* Glassmorphism Container */}
-                    <div className="relative w-full max-w-4xl aspect-[16/10] md:aspect-video rounded-2xl md:rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl p-2 md:p-4 overflow-visible group">
+                    <div className="relative w-full max-w-6xl aspect-[4/3] md:aspect-[16/10] rounded-2xl md:rounded-[2.5rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl p-3 md:p-6 overflow-visible group">
                         
                         {/* Golden Glow Accent behind the card */}
                         <div className="absolute -top-10 -right-10 w-32 h-32 md:w-64 md:h-64 bg-brand-gold/20 rounded-full blur-[60px] md:blur-[100px] z-[-1] transition-all duration-700 group-hover:bg-brand-gold/30"></div>
@@ -192,11 +237,11 @@ const Hero = () => {
                         {/* Inner Video Container (Rounded, cuts off video edges) */}
                         <div className="relative w-full h-full rounded-xl md:rounded-[1.5rem] overflow-hidden bg-black shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
                             
-                            {videos.map((vid, idx) => (
+                            {slides.map((slide, idx) => (
                                 <video
                                     key={idx}
                                     ref={el => videoRefs.current[idx] = el}
-                                    src={vid}
+                                    src={slide.video}
                                     className="absolute inset-0 w-full h-full object-cover transform scale-105"
                                     autoPlay
                                     muted
@@ -211,6 +256,17 @@ const Hero = () => {
                             
                             {/* Glass Reflections overlay */}
                             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-white/5 pointer-events-none mix-blend-overlay"></div>
+                        </div>
+
+                        {/* Floating CEO Badge */}
+                        <div className="absolute -bottom-6 -left-6 md:-bottom-10 md:-left-12 z-30 flex items-center gap-4 bg-white/5 backdrop-blur-2xl border border-white/10 p-3 md:p-4 rounded-2xl md:rounded-[2rem] shadow-[0_20px_40px_rgba(0,0,0,0.5)] group cursor-pointer hover:bg-white/10 transition-all duration-500 hover:-translate-y-2 fade-in-anim">
+                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-brand-gold/50 group-hover:border-brand-gold transition-all duration-500 shadow-[0_0_15px_rgba(246,138,33,0.3)]">
+                                <img src={ceoPortrait} alt="The Visionary" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                            </div>
+                            <div className="hidden sm:flex flex-col pr-4">
+                                <span className="text-white font-heading tracking-widest text-sm md:text-base uppercase">The Visionary</span>
+                                <span className="text-brand-gold/80 text-xs md:text-sm font-body">Message from the Founder</span>
+                            </div>
                         </div>
 
                     </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Properties from "./components/Properties";
-import About from "./components/About";
+import RoyaltonStory from "./components/RoyaltonStory";
 import Team from "./components/Team";
 import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
@@ -46,12 +46,13 @@ const App = () => {
                         <Hero />
                     </SectionWrapper>
 
+                    <RoyaltonStory />
+
                     <Properties
                         setIsExploreOpen={setIsExploreOpen}
                         onContact={handlePropertyContact}
                     />
 
-                    <About />
                     <Team />
                     <Testimonials />
 
