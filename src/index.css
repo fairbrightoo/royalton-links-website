@@ -1,8 +1,8 @@
-/* 1. Import Tailwind (The new v4 way) */
-@import "tailwindcss";
-
 /* 2. Import Fonts (Anton for the big CHAMPIONS text, Inter for UI) */
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&display=swap');
+
+/* 1. Import Tailwind (The new v4 way) */
+@import "tailwindcss";
 
 /* 3. Define your Theme */
 @theme {

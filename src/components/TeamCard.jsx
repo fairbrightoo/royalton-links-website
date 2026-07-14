@@ -35,6 +35,7 @@ const TeamCard = ({ member }) => {
                         src={member.image}
                         alt={member.name}
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                        style={member.objectPosition ? { objectPosition: member.objectPosition } : {}}
                     />
 
                     {/* Gradient & Text Overlay */}

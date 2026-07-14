@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Properties from "./components/Properties";
-import RoyaltonStory from "./components/RoyaltonStory";
-import Team from "./components/Team";
-import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
-import SectionWrapper from "./components/SectionWrapper";
 import ExploreOverlay from "./components/ExploreOverlay";
 import PropertyContactForm from "./components/PropertyContactForm";
-// 1. Import Privacy Overlay
 import PrivacyOverlay from "./components/PrivacyOverlay";
-import ContactOverlay from "./components/ContactOverlay"; // 1. Import
+import ContactOverlay from "./components/ContactOverlay";
 import Loader from "./components/Loader";
+
+// Pages
+import Home from "./pages/Home";
+import BlogList from "./pages/BlogList";
+import BlogPost from "./pages/BlogPost";
 
 const App = () => {
     const [isAppLoading, setIsAppLoading] = useState(true);
     const [isExploreOpen, setIsExploreOpen] = useState(false);
     const [contactProperty, setContactProperty] = useState(null);
     const [isContactOpen, setIsContactOpen] = useState(false);
-
-    // 2. Add Privacy State
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
     const handlePropertyContact = (propertyData) => {
@@ -28,66 +25,68 @@ const App = () => {
     };
 
     return (
-        <main className="relative w-full bg-brand-dark min-h-screen">
-            {isAppLoading && <Loader onComplete={() => setIsAppLoading(false)} />}
+        <BrowserRouter>
+            <main className="relative w-full bg-brand-dark min-h-screen flex flex-col">
+                {isAppLoading && <Loader onComplete={() => setIsAppLoading(false)} />}
 
-            {!isAppLoading && (
-                <>
-                    {/* Animated Background Shapes */}
-                    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-                        <div className="absolute rounded-full blur-[120px] opacity-50 bg-brand-purple w-[400px] h-[400px] -top-[100px] -left-[100px] animate-float-bg"></div>
-                        <div className="absolute rounded-full blur-[120px] opacity-50 bg-brand-blue w-[500px] h-[500px] -bottom-[200px] -right-[100px] animate-float-bg" style={{ animationDelay: '-5s' }}></div>
-                        <div className="absolute rounded-full blur-[120px] opacity-30 bg-brand-gold w-[300px] h-[300px] top-[40%] left-[40%] animate-float-bg" style={{ animationDelay: '-10s' }}></div>
-                    </div>
+                {!isAppLoading && (
+                    <>
+                        {/* Animated Background Shapes */}
+                        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+                            <div className="absolute rounded-full blur-[120px] opacity-50 bg-brand-purple w-[400px] h-[400px] -top-[100px] -left-[100px] animate-float-bg"></div>
+                            <div className="absolute rounded-full blur-[120px] opacity-50 bg-brand-blue w-[500px] h-[500px] -bottom-[200px] -right-[100px] animate-float-bg" style={{ animationDelay: '-5s' }}></div>
+                            <div className="absolute rounded-full blur-[120px] opacity-30 bg-brand-gold w-[300px] h-[300px] top-[40%] left-[40%] animate-float-bg" style={{ animationDelay: '-10s' }}></div>
+                        </div>
 
-                    <Navbar setIsContactOpen={setIsContactOpen} />
+                        <Navbar setIsContactOpen={setIsContactOpen} />
 
-                    <SectionWrapper id="hero-section" className="z-0">
-                        <Hero />
-                    </SectionWrapper>
+                        <div className="flex-1 relative z-10">
+                            <Routes>
+                                <Route 
+                                    path="/" 
+                                    element={
+                                        <Home 
+                                            setIsExploreOpen={setIsExploreOpen}
+                                            handlePropertyContact={handlePropertyContact}
+                                        />
+                                    } 
+                                />
+                                <Route path="/blog" element={<BlogList />} />
+                                <Route path="/blog/:slug" element={<BlogPost />} />
+                            </Routes>
+                        </div>
 
-                    <RoyaltonStory />
-
-                    <Properties
-                        setIsExploreOpen={setIsExploreOpen}
-                        onContact={handlePropertyContact}
-                    />
-
-                    <Team />
-                    <Testimonials />
-
-                    {/* 3. Pass setIsPrivacyOpen to Footer */}
-                    <Footer
-                        setIsPrivacyOpen={setIsPrivacyOpen}
-                        setIsContactOpen={setIsContactOpen}
-                    />
-
-                    {/* Overlays */}
-                    {isExploreOpen && (
-                        <ExploreOverlay
-                            onClose={() => setIsExploreOpen(false)}
-                            onContact={handlePropertyContact}
+                        <Footer
+                            setIsPrivacyOpen={setIsPrivacyOpen}
+                            setIsContactOpen={setIsContactOpen}
                         />
-                    )}
 
-                    {isContactOpen && (
-                        <ContactOverlay onClose={() => setIsContactOpen(false)} />
-                    )}
+                        {/* Overlays */}
+                        {isExploreOpen && (
+                            <ExploreOverlay
+                                onClose={() => setIsExploreOpen(false)}
+                                onContact={handlePropertyContact}
+                            />
+                        )}
 
-                    {contactProperty && (
-                        <PropertyContactForm
-                            property={contactProperty}
-                            onClose={() => setContactProperty(null)}
-                        />
-                    )}
+                        {isContactOpen && (
+                            <ContactOverlay onClose={() => setIsContactOpen(false)} />
+                        )}
 
-                    {/* 4. Render Privacy Overlay */}
-                    {isPrivacyOpen && (
-                        <PrivacyOverlay onClose={() => setIsPrivacyOpen(false)} />
-                    )}
-                </>
-            )}
-        </main>
+                        {contactProperty && (
+                            <PropertyContactForm
+                                property={contactProperty}
+                                onClose={() => setContactProperty(null)}
+                            />
+                        )}
+
+                        {isPrivacyOpen && (
+                            <PrivacyOverlay onClose={() => setIsPrivacyOpen(false)} />
+                        )}
+                    </>
+                )}
+            </main>
+        </BrowserRouter>
     )
 }
 

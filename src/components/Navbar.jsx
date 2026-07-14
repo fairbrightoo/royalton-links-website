@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { FiShoppingBag, FiUser, FiMenu, FiX } from "react-icons/fi";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -14,6 +15,18 @@ const Navbar = ({ setIsContactOpen }) => {
     const drawerRef = useRef(null);
     const backdropRef = useRef(null);
     const linksRef = useRef([]);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // Scroll to hash on mount if we came from another page
+    useEffect(() => {
+        if (location.hash) {
+            const el = document.getElementById(location.hash.substring(1));
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [location]);
 
     const [navStyle, setNavStyle] = useState({
         bg: 'bg-transparent',
@@ -126,9 +139,10 @@ const Navbar = ({ setIsContactOpen }) => {
 
                 {/* DESKTOP LINKS (LG AND UP ONLY) */}
                 <div className="hidden lg:flex gap-8 font-body text-lg font-bold tracking-wide pointer-events-auto">
-                    <a href="#properties" className="hover:text-brand-gold transition-colors">OUR PROPERTIES</a>
-                    <a href="#about" className="hover:text-brand-gold transition-colors">ABOUT US</a>
-                    <a href="#footer" className="hover:text-brand-gold transition-colors">LOCATIONS</a>
+                    <Link to="/#properties" className="hover:text-brand-gold transition-colors">OUR PROPERTIES</Link>
+                    <Link to="/#about" className="hover:text-brand-gold transition-colors">ABOUT US</Link>
+                    <Link to="/blog" className="hover:text-brand-gold transition-colors text-brand-gold">THE JOURNAL</Link>
+                    <Link to="/#footer" className="hover:text-brand-gold transition-colors">LOCATIONS</Link>
 
                     <button
                         onClick={() => setIsContactOpen(true)}
@@ -178,14 +192,24 @@ const Navbar = ({ setIsContactOpen }) => {
 
                 {/* Drawer Links */}
                 <div className="flex flex-col gap-8 text-2xl font-heading tracking-wider">
-                    {["PROPERTIES", "ABOUT US", "LOCATIONS", "CONTACT"].map((item, i) => (
+                    {["PROPERTIES", "ABOUT US", "THE JOURNAL", "LOCATIONS", "CONTACT"].map((item, i) => (
                         <div
                             key={item}
                             ref={el => (linksRef.current[i] = el)}
                             className="opacity-0 cursor-pointer hover:text-brand-gold"
                             onClick={() => {
                                 setIsOpen(false);
-                                if (item === "CONTACT") setIsContactOpen(true);
+                                if (item === "CONTACT") {
+                                    setIsContactOpen(true);
+                                } else if (item === "THE JOURNAL") {
+                                    navigate("/blog");
+                                } else if (item === "PROPERTIES") {
+                                    navigate("/#properties");
+                                } else if (item === "ABOUT US") {
+                                    navigate("/#about");
+                                } else if (item === "LOCATIONS") {
+                                    navigate("/#footer");
+                                }
                             }}
                         >
                             {item}

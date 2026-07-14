@@ -7,64 +7,58 @@ import TeamCard from './TeamCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
-import team1 from '../assets/images/placeholder_team_1.png';
-import team2 from '../assets/images/placeholder_team_2.png';
-import team3 from '../assets/images/placeholder_team_3.png';
-import team4 from '../assets/images/placeholder_team_4.png';
-import team5 from '../assets/images/placeholder_team_5.png';
-import team6 from '../assets/images/placeholder_team_6.png';
-import team7 from '../assets/images/placeholder_team_7.png';
-import team8 from '../assets/images/placeholder_team_8.png';
+import adminImage from '../assets/images/admin.png';
+import hrHodImage from '../assets/images/hr hod.png';
+import mdImage from '../assets/images/md.png';
+import gmImage from '../assets/images/gm.png';
+import siteHodImage from '../assets/images/site hod.png';
+import marketingHodImage from '../assets/images/marketing hod.png';
+import ictHodImage from '../assets/images/ict hod.png';
 
-// --- 8 MEMBER LAYOUT CONFIGURATION (Unchanged) ---
+// --- 7 MEMBER LAYOUT CONFIGURATION ---
 const teamMembers = [
     {
-        id: 1, name: "Chinedu Okafor", role: "HOD, Accounting Dept",
-        image: team1,
-        socials: { linkedin: "#", twitter: "#" },
-        style: { top: '0%', left: '2%', width: '16%', aspectRatio: '3/4', zIndex: 2 }
-    },
-    {
-        id: 2, name: "Adebayo Ogunlesi", role: "HOD, Admin Dept",
-        image: team2,
+        id: 2, name: "Miss Modlyn Akpale", role: "HOD, Admin Dept",
+        image: adminImage,
         socials: { linkedin: "#", mail: "#" },
         style: { top: '30%', left: '0%', width: '22%', aspectRatio: '4/3', zIndex: 3 }
     },
     {
-        id: 3, name: "Aliyu Abubakar", role: "HOD, Human Resource Dept",
-        image: team3,
+        id: 3, name: "Mrs Blessing Onuche Innocent", role: "HOD, Human Resource Dept",
+        image: hrHodImage,
         socials: { linkedin: "#" },
         style: { top: '55%', left: '8%', width: '24%', aspectRatio: '1/1', zIndex: 1 }
     },
     {
-        id: 4, name: "Dr. Oluwaseun Adeleke", role: "Managing Director",
-        image: team4,
+        id: 4, name: "Dr. Uchenna Eze", role: "Managing Director",
+        image: mdImage,
         socials: { linkedin: "#", twitter: "#" },
         style: { top: '2%', left: '26%', width: '22%', aspectRatio: '3/5', zIndex: 2 }
     },
     {
-        id: 5, name: "Zainab Usman", role: "General Manager",
-        image: team5,
+        id: 5, name: "Com. Uche Nwachukwu", role: "General Manager",
+        image: gmImage,
         socials: { instagram: "#", linkedin: "#" },
         style: { top: '13%', left: '57%', width: '24%', aspectRatio: '3/5', zIndex: 10 }
     },
     {
-        id: 6, name: "Nnamdi Chukwu", role: "HOD, Site Dept",
-        image: team6,
+        id: 6, name: "Mrs Ijeoma Okereke", role: "HOD, Site Dept",
+        image: siteHodImage,
         socials: { linkedin: "#", mail: "#" },
         style: { top: '45%', left: '42%', width: '18%', aspectRatio: '3/4', zIndex: 5 }
     },
     {
-        id: 7, name: "Amina Bello", role: "Asst. HOD, Business Development",
-        image: team7,
+        id: 7, name: "Mr Mathew Imakun", role: "HOD, Business Development",
+        image: marketingHodImage,
         socials: { linkedin: "#", instagram: "#" },
         style: { top: '5%', right: '2%', width: '18%', aspectRatio: '1/1', zIndex: 3 }
     },
     {
-        id: 8, name: "Mr. Tunde Bakare", role: "Asst. General Manager",
-        image: team8,
+        id: 8, name: "Mr Mathias Nega", role: "HOD, ICT Dept",
+        image: ictHodImage,
         socials: { linkedin: "#", twitter: "#" },
-        style: { top: '50%', right: '0%', width: '20%', aspectRatio: '4/3', zIndex: 12 }
+        style: { top: '50%', right: '0%', width: '20%', aspectRatio: '4/3', zIndex: 12 },
+        objectPosition: 'top'
     },
 ];
 
