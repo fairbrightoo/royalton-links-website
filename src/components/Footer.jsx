@@ -89,6 +89,7 @@ const Footer = ({ setIsPrivacyOpen }) => {
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/30 font-body">
                     <p>© 2025 Royalton Properties. All Rights Reserved.</p>
 
+                    {/*
                     <div className="flex flex-col md:flex-row items-center gap-1 md:gap-4">
                         <span>Developed by <span className="text-brand-gold font-bold">Engr Bright Osisiogu</span></span>
                         <span className="hidden md:inline">•</span>
@@ -96,6 +97,7 @@ const Footer = ({ setIsPrivacyOpen }) => {
                             <FaPhoneAlt className="text-[10px]" /> 0704 576 3306
                         </a>
                     </div>
+                    */}
                 </div>
 
             </div>
