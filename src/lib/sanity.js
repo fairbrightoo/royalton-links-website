@@ -4,7 +4,7 @@ import imageUrlBuilder from '@sanity/image-url';
 // --- SANITY CONFIGURATION ---
 // You will replace these with your actual Sanity project details later
 export const client = createClient({
-    projectId: 'your-project-id', // e.g. 'a1b2c3d4'
+    projectId: '1lcjcbvf', // e.g. 'a1b2c3d4'
     dataset: 'production',
     useCdn: true, // set to false if you want to bypass the edge cache
     apiVersion: '2024-03-01', // use current date (YYYY-MM-DD) to target the latest API version
@@ -69,20 +69,16 @@ export const mockPosts = [
 
 // Helper function to fetch posts (uses mock data for now)
 export async function getPosts() {
-    // UNCOMMENT THIS ONCE SANITY IS SETUP:
-    // return await client.fetch('*[_type == "post"] | order(publishedAt desc)');
-    
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(mockPosts), 500); // Simulate network delay
-    });
+    return await client.fetch('*[_type == "post"] | order(publishedAt desc)');
 }
 
 export async function getPostBySlug(slug) {
-    // UNCOMMENT THIS ONCE SANITY IS SETUP:
-    // return await client.fetch('*[_type == "post" && slug.current == $slug][0]', { slug });
+    return await client.fetch('*[_type == "post" && slug.current == $slug][0]', { slug });
+}
 
-    return new Promise((resolve) => {
-        const post = mockPosts.find(p => p.slug.current === slug);
-        setTimeout(() => resolve(post), 500);
-    });
+export async function getRecentPosts(excludeSlug, limit = 3) {
+    return await client.fetch(
+        '*[_type == "post" && slug.current != $excludeSlug] | order(publishedAt desc)[0...$limit]',
+        { excludeSlug, limit }
+    );
 }

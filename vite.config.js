@@ -9,6 +9,8 @@ export default defineConfig({
       tailwindcss(),
   ],
     server: {
-        host: true // This is the magic line
+        host: true, // This is the magic line
+        port: 5180,
+        strictPort: true
     }
 })

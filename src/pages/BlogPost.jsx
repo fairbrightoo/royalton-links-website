@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getPostBySlug } from '../lib/sanity';
+import { getPostBySlug, getRecentPosts, urlFor } from '../lib/sanity';
 import { FiArrowLeft } from 'react-icons/fi';
 import { PortableText } from '@portabletext/react';
 import gsap from 'gsap';
@@ -15,7 +15,7 @@ const ptComponents = {
         <img
           alt={value.alt || ' '}
           loading="lazy"
-          src={value.imageUrl} // Note: requires URL builder in real app
+          src={urlFor(value).url()}
           className="w-full rounded-2xl my-8 object-cover max-h-[60vh]"
         />
       )
@@ -37,12 +37,18 @@ const ptComponents = {
 const BlogPost = () => {
     const { slug } = useParams();
     const [post, setPost] = useState(null);
+    const [recentPosts, setRecentPosts] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to top when loading new post
-        getPostBySlug(slug).then((data) => {
-            setPost(data);
+        setLoading(true);
+        Promise.all([
+            getPostBySlug(slug),
+            getRecentPosts(slug, 3)
+        ]).then(([postData, recentData]) => {
+            setPost(postData);
+            setRecentPosts(recentData);
             setLoading(false);
         });
     }, [slug]);
@@ -85,20 +91,23 @@ const BlogPost = () => {
         <article className="relative w-full min-h-screen bg-brand-dark pt-32 pb-20 z-10">
             {/* Cinematic Background Blur */}
             <div className="absolute top-0 left-0 w-full h-[60vh] z-0 overflow-hidden">
-                <img 
-                    src={post.mainImage} 
-                    alt="Background" 
-                    className="w-full h-full object-cover opacity-20 blur-3xl transform scale-110"
-                />
+                {post.mainImage && (
+                    <img 
+                        src={urlFor(post.mainImage).url()} 
+                        alt="Background" 
+                        className="w-full h-full object-cover opacity-20 blur-3xl transform scale-110"
+                    />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-brand-dark"></div>
             </div>
 
-            <div className="container mx-auto px-4 md:px-8 max-w-4xl relative z-10">
-                <Link to="/blog" className="inline-flex items-center gap-2 text-brand-gold font-bold text-xs tracking-widest uppercase hover:-translate-x-2 transition-transform duration-300 mb-12">
-                    <FiArrowLeft /> Back to Journal
-                </Link>
+            <div className="container mx-auto px-4 md:px-8 max-w-7xl relative z-10 flex flex-col lg:flex-row gap-12 lg:gap-16">
+                <div className="lg:w-2/3">
+                    <Link to="/blog" className="inline-flex items-center gap-2 text-brand-gold font-bold text-xs tracking-widest uppercase hover:-translate-x-2 transition-transform duration-300 mb-12">
+                        <FiArrowLeft /> Back to Journal
+                    </Link>
 
-                <header className="post-header mb-16">
+                    <header className="post-header mb-16">
                     <p className="text-brand-gold font-body text-sm tracking-widest uppercase mb-6">
                         {new Date(post.publishedAt).toLocaleDateString('en-US', {
                             month: 'long',
@@ -111,11 +120,13 @@ const BlogPost = () => {
                     </h1>
                     
                     <div className="w-full h-[40vh] md:h-[60vh] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
-                        <img 
-                            src={post.mainImage} 
-                            alt={post.title} 
-                            className="w-full h-full object-cover"
-                        />
+                        {post.mainImage && (
+                            <img 
+                                src={urlFor(post.mainImage).url()} 
+                                alt={post.title} 
+                                className="w-full h-full object-cover"
+                            />
+                        )}
                     </div>
                 </header>
 
@@ -126,6 +137,47 @@ const BlogPost = () => {
                         components={ptComponents} 
                     />
                 </div>
+                </div>
+
+                {/* Sidebar */}
+                <aside className="lg:w-1/3 mt-16 lg:mt-0">
+                    <div className="sticky top-32">
+                        <h3 className="text-2xl font-heading text-white uppercase mb-8 border-b border-white/10 pb-4">
+                            Latest <span className="text-brand-gold">News</span>
+                        </h3>
+                        
+                        <div className="flex flex-col gap-6">
+                            {recentPosts.map((recent) => (
+                                <Link 
+                                    to={`/blog/${recent.slug.current}`} 
+                                    key={recent._id}
+                                    className="group flex items-start gap-4 hover:bg-white/5 p-3 -mx-3 rounded-xl transition-colors duration-300"
+                                >
+                                    <div className="w-24 h-24 shrink-0 rounded-lg overflow-hidden border border-white/10">
+                                        <img 
+                                            src={recent.mainImage ? urlFor(recent.mainImage).url() : ''} 
+                                            alt={recent.title} 
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col py-1">
+                                        <p className="text-brand-gold font-body text-[10px] tracking-widest uppercase mb-2">
+                                            {new Date(recent.publishedAt).toLocaleDateString('en-US', {
+                                                month: 'short', day: 'numeric', year: 'numeric'
+                                            })}
+                                        </p>
+                                        <h4 className="text-white font-heading text-sm leading-tight group-hover:text-brand-gold transition-colors duration-300 line-clamp-3">
+                                            {recent.title}
+                                        </h4>
+                                    </div>
+                                </Link>
+                            ))}
+                            {recentPosts.length === 0 && (
+                                <p className="text-white/50 text-sm font-body italic">No recent articles available.</p>
+                            )}
+                        </div>
+                    </div>
+                </aside>
             </div>
         </article>
     );

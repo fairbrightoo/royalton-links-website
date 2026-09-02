@@ -14,9 +14,16 @@ import gmImage from '../assets/images/gm.png';
 import siteHodImage from '../assets/images/site hod.png';
 import marketingHodImage from '../assets/images/marketing hod.png';
 import ictHodImage from '../assets/images/ict hod.png';
+import customerCareImage from '../assets/images/customer care.png';
 
-// --- 7 MEMBER LAYOUT CONFIGURATION ---
+// --- 8 MEMBER LAYOUT CONFIGURATION ---
 const teamMembers = [
+    {
+        id: 1, name: "Rachael Binichukwu", role: "Customer Care Rep",
+        image: customerCareImage,
+        socials: { linkedin: "#", twitter: "#" },
+        style: { top: '0%', left: '2%', width: '16%', aspectRatio: '3/4', zIndex: 2 }
+    },
     {
         id: 2, name: "Miss Modlyn Akpale", role: "HOD, Admin Dept",
         image: adminImage,

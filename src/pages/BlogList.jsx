@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getPosts } from '../lib/sanity';
+import { getPosts, urlFor } from '../lib/sanity';
 import { FiArrowUpRight } from 'react-icons/fi';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -52,7 +52,7 @@ const BlogList = () => {
                             >
                                 <div className="relative h-64 overflow-hidden">
                                     <img 
-                                        src={post.mainImage} 
+                                        src={post.mainImage ? urlFor(post.mainImage).url() : ''} 
                                         alt={post.title} 
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
