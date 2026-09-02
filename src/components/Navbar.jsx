@@ -141,7 +141,7 @@ const Navbar = ({ setIsContactOpen }) => {
                 <div className="hidden lg:flex gap-8 font-body text-lg font-bold tracking-wide pointer-events-auto">
                     <Link to="/#properties" className="hover:text-brand-gold transition-colors">OUR PROPERTIES</Link>
                     <Link to="/#about" className="hover:text-brand-gold transition-colors">ABOUT US</Link>
-                    <Link to="/blog" className="hover:text-brand-gold transition-colors text-brand-gold">THE JOURNAL</Link>
+                    <Link to="/blog" className="hover:text-brand-gold transition-colors text-brand-gold">OUR BLOG</Link>
                     <Link to="/#footer" className="hover:text-brand-gold transition-colors">LOCATIONS</Link>
 
                     <button
@@ -192,7 +192,7 @@ const Navbar = ({ setIsContactOpen }) => {
 
                 {/* Drawer Links */}
                 <div className="flex flex-col gap-8 text-2xl font-heading tracking-wider">
-                    {["PROPERTIES", "ABOUT US", "THE JOURNAL", "LOCATIONS", "CONTACT"].map((item, i) => (
+                    {["PROPERTIES", "ABOUT US", "OUR BLOG", "LOCATIONS", "CONTACT"].map((item, i) => (
                         <div
                             key={item}
                             ref={el => (linksRef.current[i] = el)}
@@ -201,7 +201,7 @@ const Navbar = ({ setIsContactOpen }) => {
                                 setIsOpen(false);
                                 if (item === "CONTACT") {
                                     setIsContactOpen(true);
-                                } else if (item === "THE JOURNAL") {
+                                } else if (item === "OUR BLOG") {
                                     navigate("/blog");
                                 } else if (item === "PROPERTIES") {
                                     navigate("/#properties");
